@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db_master:
+    image: postgres:17
+    container_name: dockerpostgre-db_master-1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./master_data:/var/lib/postgresql/data
+    networks:
+      - pgnet
+
+  db_slave:
+    image: postgres:17
+    container_name: dockerpostgre-db_slave-1
+    depends_on:
+      - db_master
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./slave_data:/var/lib/postgresql/data
+    networks:
+      - pgnet
+
+networks:
+  pgnet:
+    driver: bridge
