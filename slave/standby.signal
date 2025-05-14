@@ -1,2 +1,0 @@
-restore_command = 'cp /var/lib/postgresql/data/pg_wal/%f %p'
-primary_conninfo = 'host=db_master port=5432 user=replicator password=replicatorpass sslmode=prefer'
